@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>MobiLeLeLe</title>
+        <link rel="stylesheet" href="/css/reset-css.css"/>
+        <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+        <script src="/js/jquery-3.5.1.slim.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <style th:replace="~{fragments/navbar::style}"></style>
+        <style>
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .col-md-6 {
+                display: flex;
+                flex-direction: column;
+            }
+            .brand-section {
+                flex-grow: 1;
+            }
+            .table {
+                height: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div th:replace="~{fragments/navbar::navbar(activeLink=${'brands'})}"></div>
+
+        <div class="container content">
+            <h2 class="text-center text-white m-3">All Brands</h2>
+            <div class="row">
+                <div th:each="entry : ${allBrands}" class="col-md-6 mb-4">
+                    <div class="brand-section">
+                        <h2>Car brand: <span th:text="${entry.key}">Brand name</span></h2>
+                        <div>Models:
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Start Year</th>
+                                        <th>End Year</th>
+                                        <th>Picture</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="offerDTO, iterStat : ${entry.value}">
+                                        <td th:text="${offerDTO.id}"></td>
+                                        <td th:text="${offerDTO.model}"></td>
+                                        <td th:text="${offerDTO.year}"></td>
+                                        <td th:text="${offerDTO.endYear}"></td>
+                                        <td>
+                                            <a th:href="@{/offers/{id}(id=${offerDTO.id})}">
+                                                <img alt="image" th:src="@{${offerDTO.imageUrl}}" class="img-thumbnail rounded"/>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <footer th:replace="~{fragments/footer::footer}"> </footer>
+        </div>
+    </body>
+</html>

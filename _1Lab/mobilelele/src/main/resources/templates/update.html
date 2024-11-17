@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>MobiLeLeLe</title>
+        <link rel="stylesheet" href="/css/reset-css.css"/>
+        <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+        <script src="/js/jquery-3.5.1.slim.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <style th:replace="~{fragments/navbar::style}"></style>
+    </head>
+
+    <body>
+
+        <div th:replace="~{fragments/navbar::navbar(activeLink=${'update'})}"></div>
+
+
+        <div class="container content">
+            <h2 class="text-center text-white">Update Offer</h2>
+            <form th:method="PUT"
+                  th:action="@{/offers/{id}/edit(id=*{id})}"
+                  th:object="${updateOfferDTO}"
+                  class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+                <input type="hidden" name="_method" value="PUT"/>
+                <div class="row">
+                    <div class="form-group col-md-6 mb-3">
+                        <label class="text-center text-white font-weight-bold" th:for="brand">Brand</label>
+                        <select th:field="*{brand}"
+                                th:classappend="${#fields.hasErrors('brand')} ? 'is-invalid bg-danger'"
+                                id="brand"
+                                class="form-control">
+                            <option value="">- Select a brand -</option>
+                            <option th:each="brand: ${allBrandType}"
+                                    th:value="${brand}"
+                                    th:text="${brand}">
+                            </option>
+                        </select>
+
+                        <small class="invalid-feedback text-danger" th:each="msg: ${#fields.errors('model')}"
+                               th:text="${msg}"></small>
+
+                    </div>
+                    <div class="form-group col-md-6 mb-3">
+                        <label class="text-center text-white font-weight-bold" th:for="model">Model</label>
+                        <select th:field="*{model}"
+                                th:classappend="${#fields.hasErrors('model')} ? 'is-invalid bg-danger'"
+                                id="model"
+                                class="form-control">
+                            <option value="">- Select a model -</option>
+                            <option th:each="model: ${allModelType}"
+                                    th:value="${model}"
+                                    th:text="${model}">
+                            </option>
+                        </select>
+
+                        <small class="invalid-feedback text-danger" th:each="msg: ${#fields.errors('model')}"
+                               th:text="${msg}"></small>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 mb-3">
+                        <label class="text-center text-white font-weight-bold" th:for="engine">Engine</label>
+                        <select
+                                th:field="*{engine}"
+                                th:classappend="${#fields.hasErrors('engine')} ? 'is-invalid bg-danger'"
+                                id="engine"
+                                class="form-control">
+                            <option value="">- Select engine type -</option>
+                            <option th:each="type: ${allEngineTypes}"
+                                    th:value="${type}"
+                                    th:text="${type}">
+                            </option>
+                        </select>
+
+                        <small class="invalid-feedback text-danger" th:each="msg: ${#fields.errors('engine')}"
+                               th:text="${msg}"></small>
+
+                    </div>
+                    <div class="form-group col-md-6 mb-3">
+                        <label class="text-center text-white font-weight-bold"
+                               th:for="transmission">Transmission</label>
+                        <select
+                                th:field="*{transmission}"
+                                th:classappend="${#fields.hasErrors('transmission')} ? 'is-invalid bg-danger'"
+                                id="transmission"
+                                class="form-control">
+                            <option value="">- Select transmission type -</option>
+                            <option th:each="type: ${allTransmissionType}"
+                                    th:value="${type}"
+                                    th:text="${type}">
+                            </option>
+                        </select>
+
+                        <small class="invalid-feedback text-danger" th:each="msg: ${#fields.errors('transmission')}"
+                               th:text="${msg}"></small>
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="form-group col-md-6 mb-3">
+                        <label th:for="horsepower" class="text-white font-weight-bold">Horsepower</label>
+                        <input
+                                th:field="*{horsepower}"
+                                th:classappend="${#fields.hasErrors('horsepower')} ? 'is-invalid bg-danger'"
+                                type="number" min="70" max="1500" step="10"
+                                class="form-control"
+                                placeholder="Horsepower"/>
+
+                        <small class="invalid-feedback text-danger" th:each="msg: ${#fields.errors('horsepower')}"
+                               th:text="${msg}"></small>
+
+                    </div>
+
+                    <div class="form-group col-md-6 mb-3">
+                        <label th:for="mileage" class="text-white font-weight-bold">Mileage</label>
+                        <input
+                                th:field="*{mileage}"
+                                th:classappend="${#fields.hasErrors('mileage')} ? 'is-invalid bg-danger'"
+                                type="number" min="0" max="900000" step="1000"
+                                class="form-control"
+                                placeholder="Mileage in kilometers"/>
+
+                        <small class="invalid-feedback text-danger" th:each="msg: ${#fields.errors('mileage')}"
+                               th:text="${msg}"></small>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6 mb-3">
+                        <label th:for="year" class="text-white font-weight-bold">Year</label>
+                        <input
+                                th:field="*{year}"
+                                th:classappend="${#fields.hasErrors('year')} ? 'is-invalid bg-danger'"
+                                type="number" min="1900" max="2099" step="1" class="form-control"
+                                placeholder="Manufacturing year"/>
+
+                        <small class="invalid-feedback text-danger" th:each="msg: ${#fields.errors('year')}"
+                               th:text="${msg}"></small>
+
+                    </div>
+
+                    <div class="form-group col-md-6 mb-3">
+                        <label th:for="price" class="text-white font-weight-bold">Price</label>
+                        <input
+                                th:field="*{price}"
+                                th:classappend="${#fields.hasErrors('price')} ? 'is-invalid bg-danger'"
+                                type="number" min="0" step="100" class="form-control"
+                                placeholder="Suggested price"/>
+
+                        <small class="invalid-feedback text-danger" th:each="msg: ${#fields.errors('price')}"
+                               th:text="${msg}"></small>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-white font-weight-bold" th:for="description">Description</label>
+                    <textarea
+                            th:field="*{description}"
+                            th:classappend="${#fields.hasErrors('description')} ? 'is-invalid bg-danger'"
+                            type="textarea"
+                            class="form-control"
+                            rows="3"
+                            placeholder="Description">
+            </textarea>
+
+                    <small class="invalid-feedback text-danger" th:each="msg: ${#fields.errors('description')}"
+                           th:text="${msg}"></small>
+
+                </div>
+                <div class="form-group">
+                    <label class="text-white font-weight-bold" th:for="imageUrl">Image URL</label>
+                    <input
+                            th:field="*{imageUrl}"
+                            th:classappend="${#fields.hasErrors('imageUrl')} ? 'is-invalid bg-danger'"
+                            type="url" class="form-control"
+                            placeholder="Put vehicle image URL here">
+
+                    <small class="invalid-feedback text-danger" th:each="msg: ${#fields.errors('imageUrl')}"
+                           th:text="${msg}"></small>
+
+                </div>
+
+                <div class="row">
+                    <div class="col col-md-4">
+                        <div class="button-holder d-flex">
+                            <input type="submit" class="btn btn-info btn-lg" value="Update Offer"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div>
+            <footer th:replace="~{fragments/footer::footer}"> </footer>
+        </div>
+
+    </body>
+</html>

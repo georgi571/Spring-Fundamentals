@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>MobiLeLeLe</title>
+        <link rel="stylesheet" href="/css/reset-css.css"/>
+        <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+        <script src="/js/jquery-3.5.1.slim.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <style th:replace="~{fragments/navbar::style}"></style>
+        <style>
+            body {
+                color: white;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div th:replace="~{fragments/navbar::navbar(activeLink=${'admin'})}"></div>
+
+        <div class="container content">
+            <h2 style="text-align: center">Admin User Panel</h2>
+
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Active</th>
+                        <th style="display: flex; justify-content: flex-end; padding-right: 5em">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.role.getRole()}"></td>
+                        <td>
+                            <span th:text="${user.banned ? 'Banned' : 'Active'}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${user.active ? 'Online' : 'Offline'}"></span>
+                        </td>
+                        <td style="display: flex; justify-content: flex-end; gap: 10px;">
+                            <form th:if="${user.role.getRole().name() != 'ADMIN'}"
+                                  th:action="@{/admin/users/{id}/make/admin(id=${user.id})}"
+                                  th:method="post"
+                                  style="display:inline;">
+                                <input type="hidden" name="_method" value="PUT"/>
+                                <button type="submit" class="btn btn-success">Make Admin</button>
+                            </form>
+
+                            <form th:if="${user.role.getRole().name == 'ADMIN'}"
+                                  th:action="@{/admin/users/{id}/make/user(id=${user.id})}"
+                                  th:method="post"
+                                  style="display:inline;">
+                                <input type="hidden" name="_method" value="PUT"/>
+                                <button type="submit" class="btn btn-warning">Make User</button>
+                            </form>
+
+                            <form th:if="${!user.banned}"
+                                  th:action="@{/admin/users/{id}/make/ban(id=${user.id})}"
+                                  th:method="post"
+                                  style="display:inline;">
+                                <input type="hidden" name="_method" value="PUT"/>
+                                <button type="submit" class="btn btn-danger">Ban User</button>
+                            </form>
+
+                            <form th:if="${user.banned}"
+                                  th:action="@{/admin/users/{id}/make/unban(id=${user.id})}"
+                                  th:method="post"
+                                  style="display:inline;">
+                                <input type="hidden" name="_method" value="PUT"/>
+                                <button type="submit" class="btn btn-secondary">Unban User</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <footer th:replace="~{fragments/footer::footer}"> </footer>
+        </div>
+    </body>
+</html>
