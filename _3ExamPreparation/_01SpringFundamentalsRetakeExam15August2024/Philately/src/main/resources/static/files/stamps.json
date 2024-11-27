@@ -1,0 +1,34 @@
+[
+  {
+    "description": "First Stamp Add",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0b/WWI-Bulgarian-stamp.jpg",
+    "name": "Stamp 1",
+    "price": 10,
+    "ownerId": 1,
+    "paperId": 1
+  },
+  {
+    "description": "Test Image 1",
+    "imageUrl": "https://www.stamps-bg.com/2023/pic2023/5623.jpg",
+    "name": "Test Image 1",
+    "price": 20,
+    "ownerId": 2,
+    "paperId": 2
+  },
+  {
+    "description": "Test Image 2",
+    "imageUrl": "https://www.stamps-bg.com/2023/pic2023/5621.jpg",
+    "name": "Test Image 2",
+    "price": 30,
+    "ownerId": 3,
+    "paperId": 3
+  },
+  {
+    "description": "Second Stamp Add",
+    "imageUrl": "https://i.colnect.net/f/843/543/Express-stamps.jpg",
+    "name": "Stamp 2",
+    "price": 100,
+    "ownerId": 1,
+    "paperId": 2
+  }
+]

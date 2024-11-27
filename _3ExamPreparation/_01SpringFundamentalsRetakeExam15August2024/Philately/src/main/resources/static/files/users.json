@@ -1,0 +1,17 @@
+[
+  {
+    "email": "admin@abv.bg",
+    "password": "$2a$10$pyGpxa4XcqsOb0tGpXZ16OnCfi4VRt.huwM1iWlcy3o0tn05IiDJu",
+    "username": "admin"
+  },
+  {
+    "email": "test@test.test",
+    "password": "$2a$10$7S1dO3Ac/Pu77QgzlHEw/OCxeXwTLxnK2Gq4RN/VwArOQPqFy.eB2",
+    "username": "testUser"
+  },
+  {
+    "email": "test2@test.test",
+    "password": "$2a$10$2JIh9OKYH2rX39KCS4Qck.BIasbSt2Y5Ob.2ViIIlZB2tEV0SqAWa",
+    "username": "testUser2"
+  }
+]

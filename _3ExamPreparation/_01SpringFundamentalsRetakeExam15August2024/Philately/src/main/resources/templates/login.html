@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/commons::head}"></head>
+<body>
+<header th:replace="~{fragments/commons::nav(activeLink=${'login'})}"></header>
+<main>
+    <form class="welcome login"
+          th:action="@{/users/login}"
+          th:method="POST"
+          th:object="${loginDTO}">
+
+
+        <div class="is-invalid bg-danger text-light rounded" th:if="${wrongUsernameOrPassword}" th:text="${wrongUsernameOrPassword}"></div>
+
+        <div class="form-group">
+            <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Login</span></h1>
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label th:for="username" class="h3 mb-2">Username</label>
+            </div>
+            <input th:field="*{username}"
+                    th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'"
+                    type="text" class="form-control" id="username" name="username"/>
+            <div class="is-invalid bg-danger text-light rounded" th:each="msg: ${#fields.errors('username')}" th:text="${msg}"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label th:for="password" class="h3 mb-2">Password</label>
+            </div>
+            <input th:field="*{password}"
+                   th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"
+                    type="password" class="form-control" id="password" name="password"/>
+            <div class="is-invalid bg-danger text-light rounded" th:each="msg: ${#fields.errors('password')}" th:text="${msg}"></div>
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit">Login</button>
+        </div>
+
+    </form>
+</main>
+<footer th:replace="~{fragments/commons::footer}"></footer>
+</body>
+</html>
